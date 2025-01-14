@@ -1,8 +1,8 @@
 require('dotenv').config()
 
-const EC2_URL = process.env.EC2_URL || 'localhost'
+const URL = process.env.API_URL || 'localhost'
 
-const grammarCheck = (req, res, next) => {
+const similaritySearch = (req, res, next) => {
     const input = req.body.input;
     
     if (!input) {
@@ -10,26 +10,26 @@ const grammarCheck = (req, res, next) => {
         return res.status(400).json({ error: 'Input is required' });
     }
 
-    console.log('Sending grammar check request for input:', input);
+    console.log('Sending Similarity Search check request for input:', input);
     
-    fetch(`http://${EC2_URL}:8080/grammar-check`, {
+    fetch(`${URL}similarity-search`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input })
+        body: JSON.stringify({ 'task_id': input })
     })
     .then(response => {
         if (!response.ok) {
-            console.error('Grammar check service returned error:', response.status, response.statusText);
+            console.error('Similarity Search check service returned error:', response.status, response.statusText);
             throw new Error(`Service returned ${response.status}: ${response.statusText}`);
         }
         return response.json();
     })
     .then(data => {
-        console.log('Grammar check successful:', data);
-        res.status(200).json({'statusCode':200, 'output' : data.corrected_text});
+        console.log('Similarity Search check successful:', data);
+        res.status(200).json(data);
     })
     .catch(error => {
-        console.error('Grammar check failed:', error.message);
+        console.error('Similarity Search check failed:', error.message);
         res.status(500).json({ 
             error: 'Failed to check grammar',
             details: error.message 
@@ -37,4 +37,4 @@ const grammarCheck = (req, res, next) => {
     });
 };
 
-module.exports = grammarCheck;
+module.exports = similaritySearch;

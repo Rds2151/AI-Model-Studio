@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const URL = process.env.EC2_URL || 'localhost';
+const EC2_URL = process.env.EC2_URL || 'localhost';
 
 const aiDetectText = (req, res, next) => {
   const input = req.body.input;
@@ -12,7 +12,7 @@ const aiDetectText = (req, res, next) => {
 
     console.log('Sending grammar check request for input:', input);
     
-    fetch(`http://${URL}:8080/detect-ai-text`, {
+    fetch(`${EC2_URL}:8080/detect-ai-text`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input })
