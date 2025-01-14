@@ -26,8 +26,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (email, password) => {
-    const fakeEmail = "demo_user@innosquares.com";
-    const fakePassword = "64Squares@012";
+    const fakeEmail = "kv@innosquares.com";
+    const fakePassword = "Pune@123";
 
     if (email === fakeEmail && password === fakePassword) {
       setIsAuthenticated(true);

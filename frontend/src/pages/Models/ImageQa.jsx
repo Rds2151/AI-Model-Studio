@@ -1,28 +1,42 @@
 import React, { useState } from "react";
-import three from "../../assets/03.png";
+import six from "../../assets/06.jpg";
 import { useTheme } from "../../ThemeContext";
 
 const ImageQa = () => {
   const server_url = `${import.meta.env.VITE_URL}`;
 
   const [output, setOutput] = useState("");
+  const [image, setImage] = useState(null);
   const { darkMode } = useTheme();
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+    }
+  };
+
   const handleGenerate = async () => {
+    if (!image) {
+      setOutput("Error: Please select an image.");
+      return;
+    }
+
     try {
-      const response = await fetch(`${server_url}api/output-validator`, {
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("context", document.getElementById("context-text").value);
+
+      const response = await fetch(`${server_url}api/image-qa`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
+        body: formData,
       });
 
       if (response.ok) {
         const data = await response.json();
         setOutput(data);
       } else {
-        setOutput("Error: Unable to process the text.");
+        setOutput("Error: Unable to process the request.");
       }
     } catch (error) {
       setOutput("Error: Unable to make the request.");
@@ -41,7 +55,7 @@ const ImageQa = () => {
         }`}
       >
         <div className="bg-cover h-[30vh]">
-          <img src={three} className="h-full w-full object-cover" alt="" />
+          <img src={six} className="h-full w-full object-cover" alt="" />
         </div>
 
         <h1 className="mt-2 text-3xl font-bold mb-4">Image QA</h1>
@@ -52,11 +66,17 @@ const ImageQa = () => {
 
         <div>
           <h2 className="text-xl font-semibold mb-4">Input image:</h2>
-          <input type="file" placeholder="Select image file" />
+          <input
+            type="file"
+            onChange={handleImageChange}
+            placeholder="Select image file"
+            accept="image/jpeg, image/png, image/jpg, image/gif"
+          />
           <br />
           <br />
           <h2 className="text-xl font-semibold mb-4">Enter context:</h2>
           <textarea
+            id="context-text"
             className={`w-full border rounded-md p-2 mb-4 focus:outline-none focus:ring focus:ring-blue-300 ${
               darkMode
                 ? "bg-gray-800 text-white border-gray-700"
