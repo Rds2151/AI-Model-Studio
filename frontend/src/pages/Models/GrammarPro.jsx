@@ -21,7 +21,7 @@ const GrammarPro = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setOutput(data);
+        setOutput(data.output);
       } else {
         setOutput("Error: Unable to process the text.");
       }
