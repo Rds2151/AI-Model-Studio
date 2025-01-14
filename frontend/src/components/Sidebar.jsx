@@ -47,7 +47,17 @@ const Sidebar = () => {
       }}
     >
       {/* Top section with title and user greeting */}
-      <h1 className="text-2xl font-bold mb-2">AI Model Studio</h1>
+      <a target="_blank" href="https://innosquares.com/">
+        <img
+          src="https://innosquares.com/wp-content/uploads/2024/08/Innosquares-Logo-Rect.svg"
+          className="mb-2"
+          alt=""
+        />
+      </a>
+      {/* <h1 className="text-2xl font-bold mb-2 text-center text-blue-600">
+        AI Model Studio
+      </h1> */}
+      <hr />
       <div className="flex items-center gap-2 mb-6 text-1.5xl mt-4 font-bold">
         <FaUser className="text-gray-500" />
         <span>Hi, {username.charAt(0).toUpperCase() + username.slice(1)}</span>

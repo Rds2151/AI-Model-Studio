@@ -104,7 +104,9 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`w-[screen-12] h-screen p-8 ${darkMode ? "bg-gray-900" : "bg-white"}`}
+      className={`ml-64 w-[screen-12] h-screen p-8 ${
+        darkMode ? "bg-gray-900" : "bg-white"
+      }`}
     >
       <div className="max-w-7xl mx-auto">
         <h1
