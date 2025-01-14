@@ -9,6 +9,7 @@ import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
+import AIDetection from "./pages/Models/AIDetection";
 
 function App() {
   return (
@@ -69,6 +70,14 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/models/ai-detection"
+              element={
+                <ProtectedRoute>
+                  <AIDetection />
                 </ProtectedRoute>
               }
             />

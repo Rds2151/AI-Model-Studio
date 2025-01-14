@@ -38,6 +38,13 @@ const Sidebar = () => {
       className={`fixed top-0 left-0 h-screen border-1 border-r w-64 p-4 flex flex-col relative ${
         darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        height: "100vh",
+        zIndex: 999,
+      }}
     >
       {/* Top section with title and user greeting */}
       <h1 className="text-2xl font-bold mb-2">AI Model Studio</h1>
@@ -66,10 +73,6 @@ const Sidebar = () => {
             <NavLink to="/">Models</NavLink>
           </span>
         </li>
-        {/* <li className="flex items-center gap-3 cursor-pointer hover:text-blue-500">
-          <FaDatabase />
-          <span>Models</span>
-        </li> */}
         <li className="flex items-center gap-3 cursor-pointer hover:text-blue-500">
           <FaInfoCircle />
           <span>About</span>
