@@ -6,6 +6,9 @@ const GrammarPro = () => {
   const server_url = `${import.meta.env.VITE_URL}`;
 
   const [output, setOutput] = useState("");
+  const [learner, setLearner] = useState("");
+  const [expected, setExpected] = useState("");
+  
   const { darkMode } = useTheme();
 
   const handleGenerate = async () => {
@@ -15,12 +18,15 @@ const GrammarPro = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({
+          'learner' : learner,
+          'expected': expected
+        }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        setOutput(data);
+        setOutput(data.body.explanation);
       } else {
         setOutput("Error: Unable to process the text.");
       }
@@ -51,7 +57,7 @@ const GrammarPro = () => {
         </p>
 
         <div>
-          <h2 className="text-xl font-semibold mb-4">Enter your input:</h2>
+          <h2 className="text-xl font-semibold mb-4">Enter your Learner:</h2>
           <textarea
             className={`w-full border rounded-md p-2 mb-4 focus:outline-none focus:ring focus:ring-blue-300 ${
               darkMode
@@ -59,10 +65,12 @@ const GrammarPro = () => {
                 : "bg-white text-gray-900 border-gray-300"
             }`}
             rows="3"
+            value={learner}
+            onChange={(e) => setLearner(e.target.value)}
             placeholder="Enter your input here..."
             required
           ></textarea>
-          <h2 className="text-xl font-semibold mb-4">Enter your input 2:</h2>
+          <h2 className="text-xl font-semibold mb-4">Enter your Expected:</h2>
           <textarea
             className={`w-full border rounded-md p-2 mb-4 focus:outline-none focus:ring focus:ring-blue-300 ${
               darkMode
@@ -71,6 +79,8 @@ const GrammarPro = () => {
             }`}
             rows="3"
             placeholder="Enter your input here..."
+            value={expected}
+            onChange={(e) => setExpected(e.target.value)}
             required
           ></textarea>
           <button
@@ -96,6 +106,7 @@ const GrammarPro = () => {
               {output || "No output generated yet."}
             </div>
           </div>
+          
         </div>
       </div>
     </div>

@@ -1,35 +1,38 @@
 import React, { useState } from "react";
 import one from "../../assets/05.png";
 import { useTheme } from "../../ThemeContext";
+import { marked } from 'marked';
 
 const SimilaritySearch = () => {
   const server_url = `${import.meta.env.VITE_URL}`;
 
   const [inputText, setInputText] = useState("");
+  const [buttonStatus, setButtonStatus] = useState("Generate")
   const [output, setOutput] = useState("");
   const { darkMode } = useTheme();
 
   const handleGenerate = async () => {
     try {
-      const response = await fetch(`https://nrqbae7ul3.execute-api.ap-south-1.amazonaws.com/prod/similarity-search`, {
+      setButtonStatus("Generating...")
+      const response = await fetch(`${server_url}api/similarity-search`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ task_id: inputText }),
+        body: JSON.stringify({ input: inputText }),
       });
-
-      console.log(JSON.stringify({ task_id: inputText }),);
-      
 
       if (response.ok) {
         const data = await response.json();
-        setOutput(data);
+        setOutput(data.body.summary);
+        setButtonStatus("Generate")
       } else {
         setOutput("Error: Unable to process the text.");
       }
     } catch (error) {
       setOutput("Error: Unable to make the request.");
+    } finally {
+      setButtonStatus("Generate")
     }
   };
 
@@ -48,7 +51,7 @@ const SimilaritySearch = () => {
           <img src={one} className="h-full w-full object-cover" alt="" />
         </div>
 
-        <h1 className="mt-2 text-3xl font-bold mb-4">AI Detection</h1>
+        <h1 className="mt-2 text-3xl font-bold mb-4">Similarity Search</h1>
         <p className="text-gray-500 mb-6">
           Identify and retrieve content or data with similar patterns or structures.
         </p>
@@ -86,18 +89,20 @@ const SimilaritySearch = () => {
             onClick={handleGenerate}
             type="submit"
           >
-            Generate
+            {buttonStatus}
           </button>
           <div className="mt-4">
             <h3 className="text-lg font-medium">Output:</h3>
             <div
               className={`border rounded-md p-3 mt-2 ${
-                darkMode
-                  ? "bg-gray-700 border-gray-400"
-                  : "bg-gray-50 border-gray-300"
+                darkMode ? "bg-gray-700 border-gray-400" : "bg-gray-50 border-gray-300"
               }`}
             >
-              {output || "No output generated yet."}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: marked(output || "No output generated yet."),
+                }}
+              />
             </div>
           </div>
         </div>

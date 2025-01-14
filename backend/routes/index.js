@@ -5,6 +5,7 @@ const authenticateUser = require('../middlewares/authenticateUser')
 const grammarController = require('../controllers/grammarCheck')
 const aiDetectController = require('../controllers/aiDetectText')
 const similaritySearchController = require('../controllers/similaritySearch')
+const outputValidatorController = require('../controllers/outputValidator')
 
 router.get("/login", loginController);
 
@@ -15,6 +16,8 @@ router.post('/grammar-check', grammarController)
 router.post('/detect-ai-text', aiDetectController)
 
 router.post('/similarity-search', similaritySearchController)
+
+router.post('/output-validator', outputValidatorController)
 
 module.exports = router;
  

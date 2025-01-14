@@ -35,14 +35,14 @@ const modelCards = [
     route: "/models/output-validator",
     imageUrl: three,
   },
-  {
-    id: 4,
-    title: "Insights",
-    description:
-      "Unlock key data-driven insights for improved decision-making and analysis.",
-    route: "/models/insights",
-    imageUrl: four,
-  },
+  // {
+  //   id: 4,
+  //   title: "Insights",
+  //   description:
+  //     "Unlock key data-driven insights for improved decision-making and analysis.",
+  //   route: "/models/insights",
+  //   imageUrl: four,
+  // },
   {
     id: 5,
     title: "Similarity Search",

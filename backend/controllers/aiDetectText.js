@@ -10,7 +10,7 @@ const aiDetectText = (req, res, next) => {
     return res.status(400).json({ error: "Input is required" });
   }
 
-    console.log('Sending grammar check request for input:', input);
+    console.log('Sending AI Detection check request for input:', input);
     
     fetch(`${EC2_URL}:8080/detect-ai-text`, {
         method: 'POST',
@@ -19,19 +19,19 @@ const aiDetectText = (req, res, next) => {
     })
     .then(response => {
         if (!response.ok) {
-            console.error('Grammar check service returned error:', response.status, response.statusText);
+            console.error('AI Detection check service returned error:', response.status, response.statusText);
             throw new Error(`Service returned ${response.status}: ${response.statusText}`);
         }
         return response.json();
     })
     .then(data => {
-        console.log('Grammar check successful:', data);
+        console.log('AI Detection check successful:', data);
         res.status(200).json({'statusCode':200, 'output' : data.ai_probability});
     })
     .catch(error => {
-        console.error('Grammar check failed:', error.message);
+        console.error('AI Detection check failed:', error.message);
         res.status(500).json({ 
-            error: 'Failed to check grammar',
+            error: 'Failed to check AI Detection Text',
             details: error.message 
         });
     });
