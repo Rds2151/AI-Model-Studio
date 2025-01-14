@@ -13,6 +13,7 @@ import AIDetection from "./pages/Models/AIDetection";
 import GrammarPro from "./pages/Models/GrammarPro";
 import OutputValidator from "./pages/Models/OutputValidator";
 import SimilaritySearch from "./pages/Models/SimilaritySearch";
+import ImageQa from "./pages/Models/ImageQa";
 
 function App() {
   return (
@@ -105,6 +106,14 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <SimilaritySearch />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/models/image-qa"
+              element={
+                <ProtectedRoute>
+                  <ImageQa />
                 </ProtectedRoute>
               }
             />

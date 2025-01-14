@@ -1,25 +1,22 @@
 import React, { useState } from "react";
-import one from "../../assets/05.png";
+import three from "../../assets/03.png";
 import { useTheme } from "../../ThemeContext";
 
-const SimilaritySearch = () => {
+const ImageQa = () => {
   const server_url = `${import.meta.env.VITE_URL}`;
 
-  const [inputText, setInputText] = useState(0);
   const [output, setOutput] = useState("");
   const { darkMode } = useTheme();
 
   const handleGenerate = async () => {
     try {
-      const response = await fetch(`${server_url}api/similarity-search`, {
+      const response = await fetch(`${server_url}api/output-validator`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ task_id: inputText }),
+        body: JSON.stringify({}),
       });
-
-      console.log(JSON.stringify({ task_id: inputText }));
 
       if (response.ok) {
         const data = await response.json();
@@ -34,55 +31,42 @@ const SimilaritySearch = () => {
 
   return (
     <div
-      className={`min-h-screen ml-64 px-4 ${
+      className={`min-h-screen ml-64 pt-4 px-4 ${
         darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
       <div
-        className={`max-w-4xl mx-auto shadow-md rounded-lg p-6 pt-2 ${
+        className={`max-w-4xl mx-auto shadow-md rounded-lg p-6 pt-4 ${
           darkMode ? "bg-gray-800" : "bg-white"
         }`}
       >
-        <div className="bg-cover h-[30vh] mt-5">
-          <img src={one} className="h-full w-full object-cover" alt="" />
+        <div className="bg-cover h-[30vh]">
+          <img src={three} className="h-full w-full object-cover" alt="" />
         </div>
 
-        <h1 className="mt-2 text-3xl font-bold mb-4">AI Detection</h1>
+        <h1 className="mt-2 text-3xl font-bold mb-4">Image QA</h1>
         <p className="text-gray-500 mb-6">
-          Identify and retrieve content or data with similar patterns or
-          structures.
+          Compare expected and provided outputs to identify discrepancies and
+          ensure accuracy.
         </p>
 
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">Features</h2>
-          <ul className="list-disc list-inside text-gray-500">
-            <ul className="list-disc list-inside text-gray-500">
-              <li>
-                AI-powered content recognition for accurate similarity detection
-              </li>
-              <li>
-                Detailed authenticity scoring to evaluate content similarity
-              </li>
-              <li>
-                Customizable search parameters for tailored similarity detection
-              </li>
-            </ul>
-          </ul>
-        </div>
         <div>
-          <h2 className="text-xl font-semibold mb-4">Enter text:</h2>
-          <input
-            type="number"
+          <h2 className="text-xl font-semibold mb-4">Input image:</h2>
+          <input type="file" placeholder="Select image file" />
+          <br />
+          <br />
+          <h2 className="text-xl font-semibold mb-4">Enter context:</h2>
+          <textarea
             className={`w-full border rounded-md p-2 mb-4 focus:outline-none focus:ring focus:ring-blue-300 ${
               darkMode
                 ? "bg-gray-800 text-white border-gray-700"
                 : "bg-white text-gray-900 border-gray-300"
             }`}
-            placeholder="Enter your input here... e.g. 592764"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
+            rows="3"
+            placeholder="Enter context for the image here..."
             required
-          ></input>
+          ></textarea>
+
           <button
             className={`${
               darkMode
@@ -92,7 +76,7 @@ const SimilaritySearch = () => {
             onClick={handleGenerate}
             type="submit"
           >
-            Generate
+            Check
           </button>
           <div className="mt-4">
             <h3 className="text-lg font-medium">Output:</h3>
@@ -112,4 +96,4 @@ const SimilaritySearch = () => {
   );
 };
 
-export default SimilaritySearch;
+export default ImageQa;
