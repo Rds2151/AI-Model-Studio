@@ -35,7 +35,7 @@ const SimilaritySearch = () => {
 
   return (
     <div
-      className={`ml-64 px-4 ${
+      className={`min-h-screen ml-64 px-4 ${
         darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >

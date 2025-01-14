@@ -32,7 +32,7 @@ const GrammarPro = () => {
 
   return (
     <div
-      className={`min-h-screen ml-64 pt-4 px-4 ${
+      className={`min-h-screen ml-64 pt-10 px-4 ${
         darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
