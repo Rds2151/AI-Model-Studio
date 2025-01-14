@@ -5,7 +5,7 @@ const path = require("path");
 const analyzeImageWithPython = (imagePath, userContext) => {
     return new Promise((resolve, reject) => {
         // Start the Python process
-        const pythonPath = path.join(__dirname, 'venv', 'bin', 'python3.11'); 
+        const pythonPath = path.join(__dirname, 'venv', 'bin', 'python3'); 
         const pythonProcess = spawn(pythonPath, ["python-image/image_analysis.py", imagePath, userContext]);
 
         let data = "";
