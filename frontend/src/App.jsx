@@ -12,6 +12,7 @@ import "./App.css";
 import AIDetection from "./pages/Models/AIDetection";
 import GrammarPro from "./pages/Models/GrammarPro";
 import OutputValidator from "./pages/Models/OutputValidator";
+import SimilaritySearch from "./pages/Models/SimilaritySearch";
 
 function App() {
   return (
@@ -96,6 +97,14 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <OutputValidator />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/models/similarity-search"
+              element={
+                <ProtectedRoute>
+                  <SimilaritySearch />
                 </ProtectedRoute>
               }
             />
