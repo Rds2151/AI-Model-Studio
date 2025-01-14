@@ -12,7 +12,7 @@ const grammarCheck = (req, res, next) => {
 
     console.log('Sending grammar check request for input:', input);
     
-    fetch(`http://${EC2_URL}:8080/grammar-check`, {
+    fetch(`${EC2_URL}:8080/grammar-check`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input })
