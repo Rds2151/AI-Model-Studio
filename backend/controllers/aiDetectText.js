@@ -1,8 +1,8 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const URL = process.env.URL || 'localhost'
+const URL = process.env.URL || 'localhost';
 
-const grammarCheck = (req, res, next) => {
+const aiDetectText = (req, res, next) => {
     const input = req.body.input;
     
     if (!input) {
@@ -12,7 +12,7 @@ const grammarCheck = (req, res, next) => {
 
     console.log('Sending grammar check request for input:', input);
     
-    fetch(`http://${URL}:8080/grammar-check`, {
+    fetch(`http://${URL}:8080/detect-ai-text`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input })
@@ -26,7 +26,7 @@ const grammarCheck = (req, res, next) => {
     })
     .then(data => {
         console.log('Grammar check successful:', data);
-        res.status(200).json({'statusCode':200, 'output' : data.corrected_text});
+        res.status(200).json({'statusCode':200, 'output' : data.ai_probability});
     })
     .catch(error => {
         console.error('Grammar check failed:', error.message);
@@ -37,4 +37,4 @@ const grammarCheck = (req, res, next) => {
     });
 };
 
-module.exports = grammarCheck;
+module.exports = aiDetectText;
