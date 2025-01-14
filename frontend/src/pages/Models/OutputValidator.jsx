@@ -7,12 +7,14 @@ const GrammarPro = () => {
 
   const [output, setOutput] = useState("");
   const [learner, setLearner] = useState("");
+  const [buttonStatus, setButtonStatus] = useState("Check");
   const [expected, setExpected] = useState("");
   
   const { darkMode } = useTheme();
 
   const handleGenerate = async () => {
     try {
+      setButtonStatus("Checking...");
       const response = await fetch(`${server_url}api/output-validator`, {
         method: "POST",
         headers: {
@@ -27,11 +29,14 @@ const GrammarPro = () => {
       if (response.ok) {
         const data = await response.json();
         setOutput(data.body.explanation);
+        setButtonStatus("Check");
       } else {
         setOutput("Error: Unable to process the text.");
       }
     } catch (error) {
       setOutput("Error: Unable to make the request.");
+    } finally {
+      setButtonStatus("Check");
     }
   };
 
@@ -91,8 +96,9 @@ const GrammarPro = () => {
             } text-white py-2 px-4 rounded-md`}
             onClick={handleGenerate}
             type="submit"
+            disabled={buttonStatus == 'Check' ? false : true}
           >
-            Check
+            {buttonStatus}
           </button>
           <div className="mt-4">
             <h3 className="text-lg font-medium">Output:</h3>

@@ -95,6 +95,7 @@ const SimilaritySearch = () => {
             } text-white py-2 px-4 rounded-md`}
             onClick={handleGenerate}
             type="submit"
+            disabled={buttonStatus == 'Generate' ? false : true}
           >
             {buttonStatus}
           </button>

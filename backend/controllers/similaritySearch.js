@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const URL = process.env.EC2_URL || 'localhost'
+const URL = process.env.API_URL || 'localhost'
 
 const similaritySearch = (req, res, next) => {
     const input = req.body.input;
@@ -31,7 +31,7 @@ const similaritySearch = (req, res, next) => {
     .catch(error => {
         console.error('Similarity Search check failed:', error.message);
         res.status(500).json({ 
-            error: 'Failed to check grammar',
+            error: 'Failed to check Similarity Search',
             details: error.message 
         });
     });
