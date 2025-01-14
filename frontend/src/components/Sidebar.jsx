@@ -80,7 +80,7 @@ const Sidebar = () => {
         {/* About Link */}
         <li className="flex items-center gap-3">
           <NavLink
-            to="/about"
+            to="https://innosquares.com/about-us/"
             className={({ isActive }) =>
               `flex items-center gap-3 cursor-pointer hover:text-blue-500 ${
                 isActive ? "text-blue-500" : "text-gray-500"
@@ -94,7 +94,7 @@ const Sidebar = () => {
         {/* Contact Link */}
         <li className="flex items-center gap-3">
           <NavLink
-            to="/contact"
+            to="https://innosquares.com/contact-v-01/"
             className={({ isActive }) =>
               `flex items-center gap-3 cursor-pointer hover:text-blue-500 ${
                 isActive ? "text-blue-500" : "text-gray-500"

@@ -7,6 +7,7 @@ const ImageQa = () => {
 
   const [output, setOutput] = useState("");
   const [image, setImage] = useState(null);
+  const [buttonStatus, setButtonStatus] = useState("Generate");
   const { darkMode } = useTheme();
 
   const handleImageChange = (e) => {
@@ -27,6 +28,7 @@ const ImageQa = () => {
       formData.append("image", image);
       formData.append("context", document.getElementById("context-text").value);
 
+      setButtonStatus("Generating...");
       const response = await fetch(`${server_url}api/image-qa`, {
         method: "POST",
         body: formData,
@@ -34,12 +36,15 @@ const ImageQa = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setOutput(data);
+        setOutput(data.body.questions_and_answers[0]);
+        setButtonStatus("Generate");
       } else {
         setOutput("Error: Unable to process the request.");
       }
     } catch (error) {
       setOutput("Error: Unable to make the request.");
+    } finally {
+      setButtonStatus("Generate");
     }
   };
 
@@ -96,18 +101,27 @@ const ImageQa = () => {
             onClick={handleGenerate}
             type="submit"
           >
-            Check
+            {buttonStatus}
           </button>
           <div className="mt-4">
             <h3 className="text-lg font-medium">Output:</h3>
-            <div
+            Question: <div
               className={`border rounded-md p-3 mt-2 ${
                 darkMode
                   ? "bg-gray-700 border-gray-400"
                   : "bg-gray-50 border-gray-300"
               }`}
             >
-              {output || "No output generated yet."}
+              {output.question || "No output generated yet."}
+            </div>
+            Answer: <div
+              className={`border rounded-md p-3 mt-2 ${
+                darkMode
+                  ? "bg-gray-700 border-gray-400"
+                  : "bg-gray-50 border-gray-300"
+              }`}
+            >
+              {output.answer || "No output generated yet."}
             </div>
           </div>
         </div>
