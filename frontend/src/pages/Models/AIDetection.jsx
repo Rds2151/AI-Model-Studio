@@ -21,7 +21,7 @@ const AIDetection = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setOutput(data);
+        setOutput((data.output.toFixed(2)*100)+"% Ai Detected");
       } else {
         setOutput("Error: Unable to process the text.");
       }
