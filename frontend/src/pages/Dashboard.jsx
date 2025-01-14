@@ -8,6 +8,7 @@ import two from "../assets/02.jpeg";
 import three from "../assets/03.png";
 import four from "../assets/04.png";
 import five from "../assets/05.png";
+import six from "../assets/06.jpg";
 
 const modelCards = [
   {
@@ -49,6 +50,14 @@ const modelCards = [
       "Identify and retrieve content or data with similar patterns or structures.",
     route: "/models/similarity-search",
     imageUrl: five,
+  },
+  {
+    id: 6,
+    title: "Image Q&A",
+    description:
+      "Analyze an image to generate context-based questions and answers using computer vision and NLP techniques.",
+    route: "/models/image-qa",
+    imageUrl: six,
   },
 ];
 
