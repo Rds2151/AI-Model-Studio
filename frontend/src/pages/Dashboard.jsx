@@ -72,7 +72,7 @@ const ModelCard = ({ title, description, imageUrl, route, darkMode }) => {
       <div className={`p-6 ${darkMode ? "text-gray-100" : "text-gray-900"}`}>
         <h3
           className={`text-xl font-semibold mb-2 ${
-            darkMode ? "text-blue-300" : "text-blue-400"
+            darkMode ? "text-blue-300" : "text-blue-700"
           }`}
         >
           {title}
@@ -104,14 +104,14 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`ml-64 w-[screen-12] h-screen p-8 ${
+      className={`ml-64 w-[screen-12] h-screen p-6 ${
         darkMode ? "bg-gray-900" : "bg-white"
       }`}
     >
       <div className="max-w-7xl mx-auto">
         <h1
-          className={`text-4xl font-bold mb-2 ${
-            darkMode ? "text-blue-300" : "text-blue-800"
+          className={`text-3xl font-bold mb-2 ${
+            darkMode ? "text-blue-300" : "text-blue-600"
           }`}
         >
           Welcome to AI Model Studio

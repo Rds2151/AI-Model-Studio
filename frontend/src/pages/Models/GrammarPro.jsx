@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import one from "../../assets/01.jpg";
+import two from "../../assets/02.jpeg";
 import { useTheme } from "../../ThemeContext";
 
-const AIDetection = () => {
+const GrammarPro = () => {
   const server_url = `${import.meta.env.VITE_URL}`;
 
   const [inputText, setInputText] = useState("");
@@ -11,7 +11,7 @@ const AIDetection = () => {
 
   const handleGenerate = async () => {
     try {
-      const response = await fetch(`${server_url}api/detect-ai-text`, {
+      const response = await fetch(`${server_url}api/grammar-check`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,32 +32,31 @@ const AIDetection = () => {
 
   return (
     <div
-      className={`min-h-screen ml-64 px-4 pt-4 ${
+      className={`min-h-screen ml-64 pt-4 px-4 ${
         darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
       <div
-        className={`max-w-4xl mx-auto shadow-md rounded-lg p-6 pt-2 ${
+        className={`max-w-4xl mx-auto shadow-md rounded-lg p-6 pt-4 ${
           darkMode ? "bg-gray-800" : "bg-white"
         }`}
       >
         <div className="bg-cover h-[30vh]">
-          <img src={one} className="h-full w-full object-cover" alt="" />
+          <img src={two} className="h-full w-full object-cover" alt="" />
         </div>
 
-        <h1 className="mt-2 text-3xl font-bold mb-4">AI Detection</h1>
+        <h1 className="mt-2 text-3xl font-bold mb-4">Grammar Correction</h1>
         <p className="text-gray-500 mb-6">
-          AI content recognition, Plagiarism check for generated text, Detailed
-          authenticity scoring.
+          Analyze and correct grammatical errors in your text.
         </p>
 
         {/* <div className="mb-8">
           <h2 className="text-xl font-semibold mb-2">Features</h2>
           <ul className="list-disc list-inside text-gray-500">
-            AI content recognition, Plagiarism check for generated text,
-            Detailed authenticity scoring.
+            Grammar correction
           </ul>
-        </div> */}
+        </div>
+         */}
 
         <div>
           <h2 className="text-xl font-semibold mb-4">Enter text:</h2>
@@ -102,4 +101,4 @@ const AIDetection = () => {
   );
 };
 
-export default AIDetection;
+export default GrammarPro;

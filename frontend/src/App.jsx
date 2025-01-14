@@ -10,6 +10,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
 import AIDetection from "./pages/Models/AIDetection";
+import GrammarPro from "./pages/Models/GrammarPro";
+import OutputValidator from "./pages/Models/OutputValidator";
 
 function App() {
   return (
@@ -52,8 +54,8 @@ function AppContent() {
   return (
     <ThemeProvider>
       <div className={`${isAuthenticated ? "flex h-screen" : "h-screen"}`}>
-      {isAuthenticated && <Sidebar />}
-      <div className="flex-initial overflow-y-auto h-screen w-full">
+        {isAuthenticated && <Sidebar />}
+        <div className="flex-initial overflow-y-auto h-screen w-full">
           <Routes>
             <Route
               path="/login"
@@ -78,6 +80,22 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <AIDetection />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/models/grammar-pro"
+              element={
+                <ProtectedRoute>
+                  <GrammarPro />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/models/output-validator"
+              element={
+                <ProtectedRoute>
+                  <OutputValidator />
                 </ProtectedRoute>
               }
             />

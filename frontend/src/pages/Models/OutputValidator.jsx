@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import one from "../../assets/01.jpg";
+import three from "../../assets/03.png";
 import { useTheme } from "../../ThemeContext";
 
-const AIDetection = () => {
+const GrammarPro = () => {
   const server_url = `${import.meta.env.VITE_URL}`;
 
-  const [inputText, setInputText] = useState("");
   const [output, setOutput] = useState("");
   const { darkMode } = useTheme();
 
   const handleGenerate = async () => {
     try {
-      const response = await fetch(`${server_url}api/detect-ai-text`, {
+      const response = await fetch(`${server_url}api/output-validator`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ input: inputText }),
+        body: JSON.stringify({}),
       });
 
       if (response.ok) {
@@ -32,35 +31,27 @@ const AIDetection = () => {
 
   return (
     <div
-      className={`min-h-screen ml-64 px-4 pt-4 ${
+      className={`min-h-screen ml-64 pt-4 px-4 ${
         darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
       <div
-        className={`max-w-4xl mx-auto shadow-md rounded-lg p-6 pt-2 ${
+        className={`max-w-4xl mx-auto shadow-md rounded-lg p-6 pt-4 ${
           darkMode ? "bg-gray-800" : "bg-white"
         }`}
       >
         <div className="bg-cover h-[30vh]">
-          <img src={one} className="h-full w-full object-cover" alt="" />
+          <img src={three} className="h-full w-full object-cover" alt="" />
         </div>
 
-        <h1 className="mt-2 text-3xl font-bold mb-4">AI Detection</h1>
+        <h1 className="mt-2 text-3xl font-bold mb-4">Output Validator</h1>
         <p className="text-gray-500 mb-6">
-          AI content recognition, Plagiarism check for generated text, Detailed
-          authenticity scoring.
+          Compare expected and provided outputs to identify discrepancies and
+          ensure accuracy.
         </p>
 
-        {/* <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">Features</h2>
-          <ul className="list-disc list-inside text-gray-500">
-            AI content recognition, Plagiarism check for generated text,
-            Detailed authenticity scoring.
-          </ul>
-        </div> */}
-
         <div>
-          <h2 className="text-xl font-semibold mb-4">Enter text:</h2>
+          <h2 className="text-xl font-semibold mb-4">Enter your input:</h2>
           <textarea
             className={`w-full border rounded-md p-2 mb-4 focus:outline-none focus:ring focus:ring-blue-300 ${
               darkMode
@@ -69,8 +60,17 @@ const AIDetection = () => {
             }`}
             rows="3"
             placeholder="Enter your input here..."
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
+            required
+          ></textarea>
+          <h2 className="text-xl font-semibold mb-4">Enter your input 2:</h2>
+          <textarea
+            className={`w-full border rounded-md p-2 mb-4 focus:outline-none focus:ring focus:ring-blue-300 ${
+              darkMode
+                ? "bg-gray-800 text-white border-gray-700"
+                : "bg-white text-gray-900 border-gray-300"
+            }`}
+            rows="3"
+            placeholder="Enter your input here..."
             required
           ></textarea>
           <button
@@ -82,7 +82,7 @@ const AIDetection = () => {
             onClick={handleGenerate}
             type="submit"
           >
-            Generate
+            Check
           </button>
           <div className="mt-4">
             <h3 className="text-lg font-medium">Output:</h3>
@@ -102,4 +102,4 @@ const AIDetection = () => {
   );
 };
 
-export default AIDetection;
+export default GrammarPro;

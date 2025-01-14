@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import {
   FaHome,
-  FaDatabase,
   FaInfoCircle,
   FaEnvelope,
   FaMoon,
@@ -11,7 +10,6 @@ import {
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
-
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
@@ -50,15 +48,12 @@ const Sidebar = () => {
       <a target="_blank" href="https://innosquares.com/">
         <img
           src="https://innosquares.com/wp-content/uploads/2024/08/Innosquares-Logo-Rect.svg"
-          className="mb-2"
+          className={darkMode ? `mb-2 bg-white rounded-lg` : `mb-2 `}
           alt=""
         />
       </a>
-      {/* <h1 className="text-2xl font-bold mb-2 text-center text-blue-600">
-        AI Model Studio
-      </h1> */}
       <hr />
-      <div className="flex items-center gap-2 mb-6 text-1.5xl mt-4 font-bold">
+      <div className="ml-2 flex items-center gap-2 mb-5 text-1.5xl mt-4 font-bold">
         <FaUser className="text-gray-500" />
         <span>Hi, {username.charAt(0).toUpperCase() + username.slice(1)}</span>
       </div>
@@ -66,37 +61,56 @@ const Sidebar = () => {
       <hr />
       <br />
 
-      {/* Search section */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search models..."
-          className="w-full px-3 py-2 rounded-lg focus:outline-none border dark:bg-gray-800 dark:border-gray-700"
-        />
-      </div>
-
       {/* Navigation menu */}
-      <ul className="space-y-4">
-        <li className="flex items-center gap-3 cursor-pointer hover:text-blue-500">
-          <FaHome />
-          <span>
-            <NavLink to="/">Models</NavLink>
-          </span>
+      <ul className="space-y-4 ml-2">
+        {/* Models Link */}
+        <li className="flex items-center gap-3">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `flex items-center gap-3 cursor-pointer hover:text-blue-500 ${
+                isActive ? "text-blue-500" : "text-gray-500"
+              }`
+            }
+          >
+            <FaHome />
+            <span>Models</span>
+          </NavLink>
         </li>
-        <li className="flex items-center gap-3 cursor-pointer hover:text-blue-500">
-          <FaInfoCircle />
-          <span>About</span>
+        {/* About Link */}
+        <li className="flex items-center gap-3">
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `flex items-center gap-3 cursor-pointer hover:text-blue-500 ${
+                isActive ? "text-blue-500" : "text-gray-500"
+              }`
+            }
+          >
+            <FaInfoCircle />
+            <span>About</span>
+          </NavLink>
         </li>
-        <li className="flex items-center gap-3 cursor-pointer hover:text-blue-500">
-          <FaEnvelope />
-          <span>Contact</span>
+        {/* Contact Link */}
+        <li className="flex items-center gap-3">
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              `flex items-center gap-3 cursor-pointer hover:text-blue-500 ${
+                isActive ? "text-blue-500" : "text-gray-500"
+              }`
+            }
+          >
+            <FaEnvelope />
+            <span>Contact</span>
+          </NavLink>
         </li>
       </ul>
 
       {/* Bottom section with dark mode and logout */}
       <div className="mt-auto">
         {/* Dark mode toggle */}
-        <div className="mb-4 flex items-center gap-3 cursor-pointer">
+        <div className="ml-2 mb-4 flex items-center gap-3 cursor-pointer">
           <button
             className="flex items-center gap-2"
             onClick={toggleDarkMode} // Use the global toggle function
