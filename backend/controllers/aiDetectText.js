@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const URL = process.env.URL || "localhost";
+const URL = process.env.EC2_URL || 'localhost';
 
 const aiDetectText = (req, res, next) => {
   const input = req.body.input;
@@ -10,36 +10,30 @@ const aiDetectText = (req, res, next) => {
     return res.status(400).json({ error: "Input is required" });
   }
 
-  console.log("Sending AI check request for input:", input);
-
-  fetch(`http://${URL}:8080/detect-ai-text`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ input }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        console.error(
-          "AI Detect Test check service returned error:",
-          response.status,
-          response.statusText
-        );
-        throw new Error(
-          `Service returned ${response.status}: ${response.statusText}`
-        );
-      }
-      return response.json();
+    console.log('Sending grammar check request for input:', input);
+    
+    fetch(`http://${URL}:8080/detect-ai-text`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ input })
     })
-    .then((data) => {
-      console.log("AI Detect check successful:", data);
-      res.status(200).json({ statusCode: 200, output: data.ai_probability });
+    .then(response => {
+        if (!response.ok) {
+            console.error('Grammar check service returned error:', response.status, response.statusText);
+            throw new Error(`Service returned ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
     })
-    .catch((error) => {
-      console.error("AI Detect check failed:", error.message);
-      res.status(500).json({
-        error: "Failed to detect AI",
-        details: error.message,
-      });
+    .then(data => {
+        console.log('Grammar check successful:', data);
+        res.status(200).json({'statusCode':200, 'output' : data.ai_probability});
+    })
+    .catch(error => {
+        console.error('Grammar check failed:', error.message);
+        res.status(500).json({ 
+            error: 'Failed to check grammar',
+            details: error.message 
+        });
     });
 };
 

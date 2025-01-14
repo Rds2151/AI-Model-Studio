@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const URL = process.env.URL || 'localhost'
+const URL = process.env.EC2_URL || 'localhost'
 
 const grammarCheck = (req, res, next) => {
     const input = req.body.input;

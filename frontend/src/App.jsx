@@ -51,9 +51,9 @@ function AppContent() {
 
   return (
     <ThemeProvider>
-      <div className={`${isAuthenticated ? "flex" : ""} `}>
-        {isAuthenticated && <Sidebar />}
-        <div className="">
+      <div className={`${isAuthenticated ? "flex h-screen" : "h-screen"}`}>
+      {isAuthenticated && <Sidebar />}
+      <div className="flex-initial overflow-y-auto h-screen w-full">
           <Routes>
             <Route
               path="/login"
