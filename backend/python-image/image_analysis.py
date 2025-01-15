@@ -107,15 +107,18 @@ class ImageAnalyzer:
             Based on this image description:
             {first_pass_description}
 
-            And considering this user context:
+            And considering this as user query and context to answer:
             {user_input}
 
-            Please generate 5 relevant but creative questions and their answers. 
+            Please generate 5 more relevant but creative questions and their answers. 
             Format your response as a JSON string with this structure:
             {{
                 "questions": [
-                    {{"question": "Q1", "answer": "A1"}} 
-                    // ... and so on
+                    {{"question": "{user_input}", "answer": "answer to user query"}} 
+                    {{"question": "Q2", "answer": "A2"}} 
+                    {{"question": "Q3", "answer": "A3"}} 
+                    {{"question": "Q4", "answer": "A4"}} 
+                    {{"question": "Q5", "answer": "A5"}}
                 ]
             }}
             """
