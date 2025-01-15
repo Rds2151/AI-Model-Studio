@@ -5,7 +5,7 @@ import { useTheme } from "../../ThemeContext";
 const ImageQa = () => {
   const server_url = `${import.meta.env.VITE_URL}`;
 
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState([]);
   const [image, setImage] = useState(null);
   const [buttonStatus, setButtonStatus] = useState("Generate");
   const { darkMode } = useTheme();
@@ -36,7 +36,9 @@ const ImageQa = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setOutput(data.body.questions_and_answers[0]);
+        setOutput(data.body.questions_and_answers);
+        console.log(output);
+        
         setButtonStatus("Generate");
       } else {
         setOutput("Error: Unable to process the request.");
@@ -100,30 +102,36 @@ const ImageQa = () => {
             } text-white py-2 px-4 rounded-md`}
             onClick={handleGenerate}
             type="submit"
-            disabled={buttonStatus == 'Generate' ? false : true}
+            disabled={buttonStatus == "Generate" ? false : true}
           >
             {buttonStatus}
           </button>
           <div className="mt-4">
-            <h3 className="text-lg font-medium">Output:</h3>
-            Question: <div
-              className={`border rounded-md p-3 mt-2 ${
-                darkMode
-                  ? "bg-gray-700 border-gray-400"
-                  : "bg-gray-50 border-gray-300"
-              }`}
-            >
-              {output.question || "No output generated yet."}
-            </div>
-            Answer: <div
-              className={`border rounded-md p-3 mt-2 ${
-                darkMode
-                  ? "bg-gray-700 border-gray-400"
-                  : "bg-gray-50 border-gray-300"
-              }`}
-            >
-              {output.answer || "No output generated yet."}
-            </div>
+            <h3 className="text-lg font-medium">Output:</h3><br/>
+            {output.map((item, index) => (
+              <div key={index}>
+                {index+1}. Question:{" "}
+                <div
+                  className={`border rounded-md p-3 mt-2 ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-400"
+                      : "bg-gray-50 border-gray-300"
+                  }`}
+                >
+                  {item.question || "No output generated yet."}
+                </div>
+                Answer:{" "}
+                <div
+                  className={`border rounded-md p-3 mt-2 ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-400"
+                      : "bg-gray-50 border-gray-300"
+                  }`}
+                >
+                  {item.answer || "No output generated yet."}
+                </div><br/><br/>
+              </div>
+            ))}
           </div>
         </div>
       </div>
